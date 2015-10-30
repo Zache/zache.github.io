@@ -1,0 +1,31 @@
+body {
+	display: flex;
+	flex-flow: row wrap;
+}
+
+header, nav, article, aside, footer {
+	flex: 1 100%;
+}
+
+nav, aside {
+	display: flex;
+	flex-flow: row nowrap;
+}
+
+@media all and (min-width: 600px) {
+	nav, aside {
+		flex-flow: column nowrap;
+	}
+
+	nav {
+		flex: 0 0 256px;
+	}
+	
+	article {
+		flex: 2 1 0px;
+	}
+	
+	aside {
+		flex: 2 1 auto;
+	}
+}
