@@ -1,10 +1,56 @@
 body {
 	display: flex;
 	flex-flow: row wrap;
+	font-family: 'Segoe UI Web Regular', 'Segoe UI', 'Segoe WP', Tahoma, Arial, sans-serif;
 }
+
+h1 {
+	font-size: 42px;
+}
+
+h2 {
+	font-size: 28px;
+}
+
+h3 {
+	font-size: 21px;
+}
+
+h4 {
+	font-size: 17px;
+}
+
+.border-blue {
+	border-color: #0078d7;
+}
+
+.background-blue {
+	background-color: #0078d7;
+}
+
+.font-blue {
+	color: #0078d7;
+}
+
+// blues
+// Blue-Darker:     #004578; 
+// Blue-Dark:       #005a9e; 
+// Blue-DarkAlt:    #106ebe; 
+// Blue-Primary:    #0078d7; 
+// Blue-Secondary:  #2b88d8; 
+// Blue-Tertiary:   #71afe5; 
+// Blue-Light:      #c7e0f4; 
+// Blue-Lighter:    #deecf9; 
+// Blue-LighterAlt: #eff6fc;
 
 header, nav, article, aside, footer {
 	flex: 1 100%;
+}
+
+section {
+	max-width: 777px;
+	display: flex;
+	flex-flow: column nowrap;
 }
 
 nav, aside {
@@ -12,7 +58,7 @@ nav, aside {
 	flex-flow: row nowrap;
 }
 
-@media all and (min-width: 600px) {
+@media all and (min-width: 512px) {
 	nav, aside {
 		flex-flow: column nowrap;
 	}
@@ -22,10 +68,22 @@ nav, aside {
 	}
 	
 	article {
-		flex: 2 1 0px;
+		flex: 2 1 auto;
 	}
 	
 	aside {
-		flex: 2 1 auto;
+		flex: 0 0 256px;
 	}
+}
+
+.red {
+ 	// #a80000
+}
+
+.green {
+	// #107c10
+}
+
+.orange {
+	// #d83b01
 }

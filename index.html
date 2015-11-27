@@ -4,28 +4,104 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>zache.github.io</title>
-	<!--<link rel="stylesheet" href="//appsforoffice.microsoft.com/fabric/1.0/fabric.min.css"> -->
 	<link rel="stylesheet" href="site.css">
 </head>
 <body>
-	<header>
-		zache.github.io		
-	</header>
-	<nav>
-		Pages
-		<a>One</a>
-		<a>Two</a>
-	</nav>
-	<article>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+	<h1>
+		head<!-- zache.github.io		-->
+	</h1>
+	<section>
+		<nav>
+			Entries
+			<a href="#OpenIdConnectAndAAD">OpenIdConnect</a>
+			<a href="#CORSandIIS">CORS and hosting on IIS</a>
+		</nav>
+		<aside>
+			Links
+			<a href="https://github.com/Zache">My code</a>
+			<a>Two</a>
+			<a>Three</a>
+			<a>Four</a>
+		</aside>
+	</section>
+	<section>
+	<article id="OpenIdConnectAndAAD">
+		<header>
+			OpenIdConnect
+		</header>
+		<section>
+			Microsoft.Owin.Security
+Microsoft.Owin.Security.Cookies
+Microsoft.Owin.Security.OpenIdConnect
+Microsoft.IdentityModel.Protocol.Extensions
+System.IdentityModel.Tokens.Jwt
+
+eller deras motsvarigheter i DNX
+
+ClientI - Guid
+Får du när du lagt upp din applikation i AzureAD
+
+Tenant - Uri
+*.onmicrosoft.com
+
+AADInstance - Uri
+https://login.microsoftonline.com/
+
+ClientSecret - string
+Kan du få i Azure AD
+
+RedirectUri - Uri
+Dit användaren ska komma när de är inloggade, välj mellan registrerade i AzureAD
+
+Authority - Uri
+AADInstance + Tenant, det är hit användaren kommer skickas för att logga in (typ)
+
+Grupper!
+ - Ladda ner manifest (json)
+ - Redigera så att groupMembershipClaims har värdet "All" eller "SecurityGroups" (för mig fungerade bara all, som inkluderar distrubutionslistor)
+ - Ladda upp ditt redigerade manifest
+
+Nu får du en rad Guid:ar i Jwt-tokenen, som kommer bli Claims i användarens ClaimPrinicipal
+Tar reda på vilken Guid som är vilken group med graphexplorer (binga) du kan använda ODATA $filter=startswith(PROPERTY,VALUE) för att hitta grupper som jag gjorde
+Dunka in dem som konstanter i din app och auktorisera användaren genom att kolla om de finns i användarens claims
+		</section>
+		<footer>
+			<div class="sources"></div>
+			<div class="tags">OWIN, ASP.NET, OAUTH, OAUTH2, OPENIDCONNECT, ACTIVE DIRECTORY, AAD, AZURE ACTIVE DIRECTORY, AUTHENTICATION, GROUPS, AUTHORIZATION<div>
+		</footer>
 	</article>
-	<aside>
-		Links
-		<a>One</a>
-		<a>Two</a>
-		<a>Three</a>
-		<a>Four</a>
-	</aside>
+	<article id="CORSandIIS">
+		<header>
+			CORS and hosting on IIS
+		</header>
+		<section>
+			Remove OPTIONSVerbHandler and add handle more HTTP VERBs
+
+The OPTIONSVerbHandler does what it says on the tin, it handles requests
+with the OPTIONS method, but it does so quite naively/strictly and with
+IIS-configured behaviour. Our application runs under the
+ExtensionlessUrl-handlers, they do not bind to the OPTIONS verb by
+default.
+
+If a request contains no Accept-Control-Request-<stuff> and thus the only
+CORS relevant header is Origin (which is not an Accept-Control-Request
+header!) no preflight (an OPTIONS request) is needed. And then the OPTIONSVerbHandler
+does nothing and our CORS-middleware can make sure that things go as expected.
+
+But when we make a CORS-XHR-request with something like a custom header
+(eg: X-Categorization-Client) then we need a preflight request to see that
+it is in the Access-Control-Allow-Headers header in the response. This
+request will be intercepted by the OPTIONSVerbHandler which does its best,
+which isn't much because we don't want to configure a bunch of custom
+headers in IIS. Our handlers don't bind to the OPTIONS verb and so our
+CORS-middleware has no chance to
+		</section>
+		<footer>
+			<div class="sources"></div>
+			<div class="tags">OWIN, IIS, ASP.NET, CORS, OPTIONS, PRE-FLIGHT</div>
+		</footer>
+	</article>
+</section>
 	<footer>
 		Footer		
 	</footer>
